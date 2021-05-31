@@ -1,5 +1,5 @@
 {
   "BrandName": "Weblancer",
   "BaseName": "/publisher_1/client",
-  "pport": 4000
+  "pport": "4000"
 }

@@ -1,0 +1,56 @@
+.HolderHeaderRoot {
+    box-sizing: border-box;
+    height: 48px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.BrandIconHolder {
+    padding-right: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.Divider {
+    width: 1px;
+    background-color: #dedede;
+    height: inherit;
+}
+
+.LeftHolder{
+    flex: 1;
+    margin: 0px 12px;
+}
+
+.RightHolder{
+    
+}
+
+.RestoreEditorButton{
+    text-transform: none !important;
+    color: #6f6f6f  !important;
+    padding: 5px 16px !important;
+}
+
+.SaveButton{
+    text-transform: none !important;
+    color: #6f6f6f  !important;
+    margin-left: 12px !important;
+    padding: 5px 16px !important;
+}
+
+.PreviewButton{
+    text-transform: none !important;
+    color:  rgb(17, 109, 255)  !important;
+    margin-left: 12px !important;
+    padding: 5px 16px !important;
+}
+
+.PublishButton{
+    text-transform: none !important;
+    color: white !important;
+    background-color: rgb(17, 109, 255)  !important;
+    margin-left: 12px !important;
+    padding: 5px 16px !important;
+}

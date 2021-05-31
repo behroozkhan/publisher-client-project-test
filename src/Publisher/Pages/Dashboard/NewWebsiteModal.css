@@ -1,25 +1,38 @@
 .NewWebsiteModalRoot{
-
+    box-sizing: border-box;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .NewWebsiteModalPaper{
-
+    max-height: 80%;
+    max-width: 80%;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    outline: none;
+    min-width: 400px;
+    overflow-y: auto;
 }
 
 .NewWebsiteModalTitle{
-
+    margin-bottom: 16px;
+    font-weight: bold;
 }
 
 .NewWebsiteModalName{
-
+    margin-bottom: 16px !important;
 }
 
 .NewWebsiteModalDescription{
-
+    margin-bottom: 16px !important;
 }
 
 .NewWebsiteModalSubDomain{
-
+    margin-bottom: 16px !important;
 }
 
 .NewWebsiteModalButton{

@@ -21,20 +21,21 @@ class AuthManager {
             headers: {
                 'pport': config.pport
             }
-        }
+        };
 
         axios.post(`${this.baseUrl}/user/login`, inputs, axiosConfig)
             .then(res => {
                 console.log(res.data);
                 if (res.data.success) {
                     localStorage.setItem('authorization', `Bearer ${res.data.data.accessToken}`);
-                    cb(true);
+                    cb(true, res.data.data, res.data.message);
                 } else {
-                    cb(false, res.data.message);
+                    cb(false, res.data.data, res.data.message);
                 }
             })
             .catch(error => {
-                cb(false, (error.response && error.response.data) ? error.response.data.message : error);
+                cb(false, error.response && error.response.data && error.response.data.data,
+                    (error.response && error.response.data) ? error.response.data.message : error);
             })
     };
 
@@ -43,7 +44,7 @@ class AuthManager {
     }
 }
 
-// let Auth = new AuthManager("/whitelabel");
-let Auth = new AuthManager('/api');
+let Auth = new AuthManager("https://publisher.weblancer.ir/publisher_1/client/api");
+// let Auth = new AuthManager('/api');
 
 export default Auth;

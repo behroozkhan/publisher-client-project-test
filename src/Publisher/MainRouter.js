@@ -6,16 +6,22 @@ import {
 import PrivateRoute from "./PrivateRoute";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import Login from "./Pages/Login";
-import Server from "./Server";
+import Register from "./Pages/Register";
+import EditorHolder from "./Pages/EditorHolder/EditorHolder";
+import { WeblancerContext } from './Pages/Contexts/WeblancerContext';
 
-export default class MainRouter extends React.Component {
+class MainRouter extends React.Component {
+    static contextType = WeblancerContext;
+
     constructor(props) {
         super(props);
 
         this.state = {
         };
+    }
 
-        Server.setRouter(this);
+    componentDidMount(){
+        this.context.setRouter(this);
     }
 
     redirect = (redirectPath, redirectProps) => {
@@ -37,11 +43,19 @@ export default class MainRouter extends React.Component {
         return (
                 <Switch>
                     <Route path="/login">
-                        <Login router={this} {...this.state.redirectProps}/>
+                        <Login {...this.state.redirectProps}/>
+                    </Route>
+
+                    <Route path="/register">
+                        <Register {...this.state.redirectProps}/>
                     </Route>
 
                     <PrivateRoute path="/dashboard">
-                        <Dashboard router={this} {...this.state.redirectProps}/>
+                        <Dashboard {...this.state.redirectProps}/>
+                    </PrivateRoute>
+
+                    <PrivateRoute path="/holder/:id">
+                        <EditorHolder/>
                     </PrivateRoute>
 
                     <PrivateRoute path="/">
@@ -56,3 +70,5 @@ export default class MainRouter extends React.Component {
         )
     }
 }
+
+export default MainRouter;

@@ -1,13 +1,12 @@
 import React from 'react';
 import TextField from "@material-ui/core/TextField/TextField";
 import Button from "@material-ui/core/Button/Button";
-import './Login.css';
+import './Register.css';
 import Paper from "@material-ui/core/Paper/Paper";
-import Auth from "../Auth";
 import config from '../../Config/config.json';
-import { WeblancerContext } from './Contexts/WeblancerContext';
+import { Server, WeblancerContext } from './Contexts/WeblancerContext';
 
-export default class Login extends React.Component {
+export default class Register extends React.Component {
     static contextType = WeblancerContext;
 
     constructor (props) {
@@ -19,76 +18,80 @@ export default class Login extends React.Component {
     }
 
     checkInputs = () => {
-        if (!this.username || this.username.length < 3) {
-            this.context.showSnackbar('Username must have at least 3 character', 'warning');
+        if (this.password !== this.rePassword) {
+            this.context.showSnackbar('Password repeat not match', 'warning');
             return false;
         }
 
-        if (!this.password || this.password.length < 3) {
-            this.context.showSnackbar('Password must have at least 3 character', 'warning');
+        if (this.password.length < 3) {
+            this.context.showSnackbar('password must have at least 3 character', 'warning');
             return false;
         }
 
         return true;
     };
 
-    onLoginClick = (e) => {
+    onRegisterClick = (e) => {
         if (!this.checkInputs())
             return;
 
-        Auth.authenticate(this.username, this.password, (success, data, error) => {
+        Server.register(this.username, this.password, (success, data, error) => {
             if (success) {
-                this.context.showSnackbar('User logged in successfully', 'success');
-                this.context.fetchUser(() => {
-                    this.context.pageRedirect("/dashboard");
-                });
+                this.context.showSnackbar('User created successfully', 'success');
+                this.context.pageRedirect("/login");
             } else {
                 this.context.showSnackbar(error, 'error');
-                console.log("login error", error)
             }
         });
     };
 
-    onRegisterClick = (e) => {
-        this.context.pageRedirect("/register");
+    onLoginClick = (e) => {
+        this.context.pageRedirect("/login");
     };
 
     render () {
         return (
-            <div className="LoginPage">
-                <Paper className="LoginBoundary">
-                    <span className="LoginTitle">
+            <div className="RegisterPage">
+                <Paper className="RegisterBoundary">
+                    <span className="RegisterTitle">
                         {config.BrandName} Website Builder
                     </span>
                     <TextField
-                        className="LoginUsername"
+                        className="RegisterUsername"
                         label="Username" variant="outlined" size="small"
                         onChange={(e) => {
                             this.username = e.target.value;
                         }}
                     />
                     <TextField
-                        className="LoginPassword"
+                        className="RegisterPassword"
                         label="Password" variant="outlined" size="small"
                         onChange={(e) => {
                             this.password = e.target.value;
                         }}
                     />
+                    <TextField
+                        className="RegisterPassword"
+                        label="Retype Password" variant="outlined" size="small"
+                        onChange={(e) => {
+                            this.rePassword = e.target.value;
+                        }}
+                    />
 
-                    <div className="LoginButtonsContainer">
+                    <div className="RegisterButtonsContainer">
                         <Button
-                            className="LoginEnter"
+                            className="RegisterEnter"
                             variant="contained" color="primary"
-                            onClick={this.onLoginClick}
-                        >
-                            Enter
-                        </Button>
-                        <Button
-                            className="LoginRegister"
-                            color="primary"
                             onClick={this.onRegisterClick}
                         >
                             Register
+                        </Button>
+                        <Button
+                            className="RegisterLogin"
+                            color="primary"
+                            onClick={this.onLoginClick}
+                        >
+                            Login
                         </Button>
                     </div>
                 </Paper>

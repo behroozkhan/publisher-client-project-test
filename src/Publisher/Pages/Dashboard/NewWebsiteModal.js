@@ -3,10 +3,12 @@ import './NewWebsiteModal.css';
 import Modal from '@material-ui/core/Modal';
 import Paper from "@material-ui/core/Paper/Paper";
 import TextField from "@material-ui/core/TextField/TextField";
-import Server from "../../Server";
 import Button from "@material-ui/core/Button/Button";
+import { Server, WeblancerContext } from './../Contexts/WeblancerContext';
 
 export default class NewWebsiteModal extends React.Component {
+    static contextType = WeblancerContext;
+
     constructor (props) {
         super(props);
         this.state = {
@@ -22,7 +24,24 @@ export default class NewWebsiteModal extends React.Component {
         this.mounted = false;
     }
 
+    checkInputs = () => {
+        let {newWebsite} = this.props;
+        if (!newWebsite.name || newWebsite.name.length < 3) {
+            this.context.showSnackbar('Website name must have at least 3 character', 'warning');
+            return false;
+        }
+        if (newWebsite.subDomain && newWebsite.subDomain.length < 3) {
+            this.context.showSnackbar('SubDomain must have at least 3 character or blank', 'warning');
+            return false;
+        }
+
+        return true;
+    };
+
     createNewWebSite = () => {
+        if (!this.checkInputs())
+            return;
+
         this.setState({loading: true, error: undefined});
         Server.createNewWebSite(this.props.newWebsite, (success, website, error) => {
             if (!this.mounted) return;
@@ -59,13 +78,8 @@ export default class NewWebsiteModal extends React.Component {
                         onChange={(e) => {
                             newWebsite.description = e.target.value;
                         }}
-                    />
-                    <TextField
-                        className="NewWebsiteModalSubDomain"
-                        label="Sub Domain (subdomain.weblancer.ir)" variant="outlined" size="small"
-                        onChange={(e) => {
-                            newWebsite.subDomain = e.target.value;
-                        }}
+                        multiline
+                        rows={2}
                     />
                     <Button
                         className="NewWebsiteModalButton"

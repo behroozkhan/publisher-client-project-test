@@ -1,11 +1,13 @@
 import React from 'react';
 import './Dashboard.css';
-import Server from "../../Server";
 import WebsiteItem from "./WebsiteItem";
 import Button from "@material-ui/core/Button/Button";
 import NewWebsiteModal from "./NewWebsiteModal";
+import { Server, WeblancerContext } from './../Contexts/WeblancerContext';
 
 export default class Dashboard extends React.Component {
+    static contextType = WeblancerContext;
+
     constructor (props) {
         super(props);
         this.state = {
@@ -25,18 +27,21 @@ export default class Dashboard extends React.Component {
 
     load = () => {
         this.setState({loading: true, error: undefined});
-        Server.getUserWebsites((success, websites, error) => {
+        Server.getUserWebsites((success, data, error) => {
             if (!this.mounted) return;
 
             if (success)
-                this.setState({websites, loading: false});
+                this.setState({websites: data.rows, loading: false});
             else
                 this.setState({error, loading: false});
         });
     };
 
     onEditWebsite = (website) => (e) => {
-        this.props.router.redirect("/editor", {website});
+        e.stopPropagation();
+        e.preventDefault();
+
+        this.context.pageRedirect(`/holder/${website.id}`);
     };
 
     render () {
@@ -48,10 +53,11 @@ export default class Dashboard extends React.Component {
                         variant="contained" color="primary"
                         onClick={(e) => {this.setState({newWebsite: {}})}}
                     >
-                        Enter
+                        Create New Website
                     </Button>
                 </div>
                 <div className="DashboardWebsiteGrid">
+                    {console.log(this.state.websites)}
                     {
                         this.state.websites.map(website => {
                             return (

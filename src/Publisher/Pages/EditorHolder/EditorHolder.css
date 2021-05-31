@@ -1,11 +1,31 @@
 .EditorHolderPage{
-
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 .EditorHolderIFrame{
-
+    flex: 1;
 }
 
-.EditorHolderHeader{
+.EditorIFrame{
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+    border: 0px;
+    border-top: 1px solid #D6D6D6;
+}
 
+.EditorHolderLoading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
 }

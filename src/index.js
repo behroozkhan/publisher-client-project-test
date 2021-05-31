@@ -5,14 +5,22 @@ import * as serviceWorker from './serviceWorker';
 import {BrowserRouter as Router, withRouter} from 'react-router-dom';
 import MainRouter from "./Publisher/MainRouter";
 import config from './Config/config.json';
-        
-const MainApp = withRouter(props => <MainRouter {...props}/>);
+import { SnackbarProvider } from 'notistack';
+import WeblancerContextProvider from './Publisher/Pages/Contexts/WeblancerContext';
+
+const MainApp = withRouter(props =>
+    <SnackbarProvider maxSnack={3}>
+      <WeblancerContextProvider>
+        <MainRouter {...props}/>
+      </WeblancerContextProvider>
+    </SnackbarProvider>
+);
 
 ReactDOM.render(
   <React.StrictMode>
-      <Router basename={config.BaseName}>
-          <MainApp/>
-      </Router>
+    <Router basename={config.BaseName}>
+        <MainApp/>
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );

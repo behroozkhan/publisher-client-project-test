@@ -1,0 +1,47 @@
+.RegisterPage{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #cfcfcf;
+}
+
+.RegisterBoundary{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    border-radius: 4px;
+    background-color: #ffffff;
+    width: 600px;
+}
+
+.RegisterTitle{
+    width: 100%;
+    display: inline-block;
+    margin-bottom: 16px !important;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.RegisterUsername{
+    margin-bottom: 16px !important;
+}
+
+.RegisterPassword{
+    margin-bottom: 16px !important;
+}
+
+.RegisterButtonsContainer{
+    width: 100%;
+}
+
+.RegisterEnter{
+    margin-right: 16px !important;
+}
+
+.RegisterLogin{
+    position: absolute !important;
+    right: 16px !important;
+}
