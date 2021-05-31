@@ -124,8 +124,8 @@ export default class EditorHolder extends React.Component {
                     clearInterval(this.loadingInterval);
                     this.setState({
                         // TODO for test
-                        // editorUrl: data.longProcess.metaData.url,
-                        editorUrl: "http://localhost:3001",
+                        //editorUrl: "http://localhost:3001",
+                        editorUrl: data.longProcess.metaData.url,
                         editorLongProcessId: data.longProcess.id
                     });
                 }
