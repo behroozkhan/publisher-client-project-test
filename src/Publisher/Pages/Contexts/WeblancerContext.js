@@ -25,8 +25,9 @@ class WeblancerContextProvider extends React.Component {
     }
 
     init = () => {
-        Server = new ServerManager("https://publisher.weblancer.ir/publisher_1/client/api", this);
-        // Server = new ServerManager('/api');
+        // TODO for test
+        //Server = new ServerManager("https://publisher.weblancer.ir/publisher_1/client/api", this);
+        Server = new ServerManager('/api');
     };
 
     componentDidMount(){
