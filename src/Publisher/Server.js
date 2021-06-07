@@ -28,7 +28,7 @@ export default class ServerManager {
             })
             .catch(error => {
                 if (error.response && error.response.status === 401) {
-                    this.context.redirect('/login');
+                    this.context.pageRedirect('/login');
                 } else if (error.response && error.response.status === 409) {
                     cb(false, error.response.data.data, error.response.data.message);
                 } else if (error.response && error.response.status === 500) {
@@ -52,7 +52,7 @@ export default class ServerManager {
             })
             .catch(error => {
                 if (error.response && error.response.status === 401) {
-                    this.context.redirect('/login');
+                    this.context.pageRedirect('/login');
                 } else {
                     cb(false, undefined, error);
                 }
@@ -70,7 +70,7 @@ export default class ServerManager {
             })
             .catch(error => {
                 if (error.response && error.response.status === 401) {
-                    this.context.redirect('/login');
+                    this.context.pageRedirect('/login');
                 } else {
                     cb(false, undefined, error);
                 }
@@ -88,7 +88,7 @@ export default class ServerManager {
             })
             .catch(error => {
                 if (error.response && error.response.status === 401) {
-                    this.context.redirect('/login');
+                    this.context.pageRedirect('/login');
                 } else {
                     cb(false, undefined, error);
                 }
@@ -106,7 +106,7 @@ export default class ServerManager {
             })
             .catch(error => {
                 if (error.response && error.response.status === 401) {
-                    this.context.redirect('/login');
+                    this.context.pageRedirect('/login');
                 } else {
                     cb(false, undefined, error);
                 }
@@ -124,7 +124,7 @@ export default class ServerManager {
             })
             .catch(error => {
                 if (error.response && error.response.status === 401) {
-                    this.context.redirect('/login');
+                    this.context.pageRedirect('/login');
                 } else {
                     cb(false, undefined, error);
                 }
@@ -142,7 +142,7 @@ export default class ServerManager {
             })
             .catch(error => {
                 if (error.response && error.response.status === 401) {
-                    this.context.redirect('/login');
+                    this.context.pageRedirect('/login');
                 } else {
                     cb(false, undefined, error);
                 }
@@ -160,7 +160,7 @@ export default class ServerManager {
             })
             .catch(error => {
                 if (error.response && error.response.status === 401) {
-                    this.context.redirect('/login');
+                    this.context.pageRedirect('/login');
                 } else {
                     cb(false, undefined, error);
                 }
@@ -178,7 +178,7 @@ export default class ServerManager {
             })
             .catch(error => {
                 if (error.response && error.response.status === 401) {
-                    this.context.redirect('/login');
+                    this.context.pageRedirect('/login');
                 } else {
                     cb(false, undefined, error);
                 }
@@ -196,7 +196,7 @@ export default class ServerManager {
             })
             .catch(error => {
                 if (error.response && error.response.status === 401) {
-                    this.context.redirect('/login');
+                    this.context.pageRedirect('/login');
                 } else {
                     cb(false, undefined, error);
                 }
@@ -218,7 +218,7 @@ export default class ServerManager {
             })
             .catch(error => {
                 if (error.response && error.response.status === 401) {
-                    this.context.redirect('/login');
+                    this.context.pageRedirect('/login');
                 } else {
                     cb(false, undefined, error);
                 }
@@ -236,10 +236,46 @@ export default class ServerManager {
             })
             .catch(error => {
                 if (error.response && error.response.status === 401) {
-                    this.context.redirect('/login');
+                    this.context.pageRedirect('/login');
                 } else {
                     cb(false, undefined, error);
                 }
             })
     };
+
+    post = (route, input, cb) => {
+        axios.post(`${this.baseUrl}${route}`, input, this.getOptions())
+            .then(res => {
+                if (res.data.success) {
+                    cb(true, res.data.data);
+                } else {
+                    cb(false, undefined, res.data.message);
+                }
+            })
+            .catch(error => {
+                if (error.response && error.response.status === 401) {
+                    this.context.pageRedirect('/login');
+                } else {
+                    cb(false, undefined, error);
+                }
+            })
+    }
+
+    get = (route, cb) => {
+        axios.get(`${this.baseUrl}${route}`, this.getOptions())
+            .then(res => {
+                if (res.data.success) {
+                    cb(true, res.data.data);
+                } else {
+                    cb(false, undefined, res.data.message);
+                }
+            })
+            .catch(error => {
+                if (error.response && error.response.status === 401) {
+                    this.context.pageRedirect('/login');
+                } else {
+                    cb(false, undefined, error);
+                }
+            })
+    }
 }

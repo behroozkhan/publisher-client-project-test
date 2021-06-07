@@ -73,7 +73,7 @@ export default class EditorHolder extends React.Component {
                 this.postMessage({
                     type: "Editor",
                     func: "onSiteDataUpdated",
-                    inputs: [data.website.metadata && data.website.metadata.siteData]
+                    inputs: [data.website.metadata && data.website.metadata.siteData, websiteId]
                 });
 
                 this.setState({website: data.website})
@@ -124,8 +124,8 @@ export default class EditorHolder extends React.Component {
                     clearInterval(this.loadingInterval);
                     this.setState({
                         // TODO for test
-                        //editorUrl: "http://localhost:3001",
-                        editorUrl: data.longProcess.metaData.url,
+                        editorUrl: "http://localhost:3001",
+                        //editorUrl: data.longProcess.metaData.url,
                         editorLongProcessId: data.longProcess.id
                     });
                 }
