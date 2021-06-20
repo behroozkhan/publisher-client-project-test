@@ -7,6 +7,7 @@ import { WeblancerContext } from './../Contexts/WeblancerContext';
 import EditorHolderHeader from './EditorHolderHeader';
 import EditorHolderLoading from './EditorHolderLoading';
 import PublishWebsite from './Components/PublishWebsite';
+import {parse, stringify} from 'flatted';
 
 export default class EditorHolder extends React.Component {
     static contextType = WeblancerContext;
@@ -38,8 +39,25 @@ export default class EditorHolder extends React.Component {
         this.mounted = true;
         this.init();
         this.load();
+    }
 
-        console.log("USER", this.context.user)
+    registerKeyEvent = () => {
+        window.addEventListener("keydown",(e) =>{
+            let jsonedEvent = {
+                which: e.which,
+                keyCode: e.keyCode,
+                ctrlKey: e.ctrlKey,
+                type: "keydown",
+            };
+
+            e.preventDefault();
+            
+            console.log("jsonedEvent", e, jsonedEvent);
+            this.postMessage({
+                type: "Event",
+                inputs: [jsonedEvent]
+            });
+        });
     }
 
     componentWillUnmount(){
@@ -51,7 +69,7 @@ export default class EditorHolder extends React.Component {
     };
 
     getIframeWindow = () => {
-        return this.editorIframe.current.contentWindow;
+        return this.editorIframe.current && this.editorIframe.current.contentWindow;
     };
 
     postMessage = (data, callback) => {
@@ -66,6 +84,8 @@ export default class EditorHolder extends React.Component {
 
     onEditorMounted = (callback) => {
         let {websiteId} = this.state;
+        
+        this.registerKeyEvent();
 
         Server.getWebsite(websiteId, (success, data, error) => {
             if (success) {
@@ -124,8 +144,8 @@ export default class EditorHolder extends React.Component {
                     clearInterval(this.loadingInterval);
                     this.setState({
                         // TODO for test
-                        // editorUrl: "http://localhost:3001",
-                        editorUrl: data.longProcess.metaData.url,
+                        editorUrl: "http://localhost:3001",
+                        //editorUrl: data.longProcess.metaData.url,
                         editorLongProcessId: data.longProcess.id
                     });
                 }
