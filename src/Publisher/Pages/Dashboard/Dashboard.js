@@ -6,7 +6,6 @@ import NewWebsiteModal from "./NewWebsiteModal";
 import { Server, WeblancerContext } from './../Contexts/WeblancerContext';
 import DashboardHeader from "./DashboardHeader";
 import ReactLoading from "react-loading";
-import Paper from "@material-ui/core/Paper/Paper";
 
 export default class Dashboard extends React.Component {
     static contextType = WeblancerContext;
@@ -70,8 +69,8 @@ export default class Dashboard extends React.Component {
                 </div>
                 <div className="DashboardWebsiteGridRoot">
                     <div className="DashboardWebsiteGrid">
-                        {console.log(this.state.websites)}
                         {
+                            this.context.user &&
                             this.state.websites.map(website => {
                                 return (
                                     <WebsiteItem
