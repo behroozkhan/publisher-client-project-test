@@ -93,7 +93,8 @@ export default class EditorHolder extends React.Component {
                 this.postMessage({
                     type: "Editor",
                     func: "onSiteDataUpdated",
-                    inputs: [data.website.metadata && data.website.metadata.siteData, websiteId]
+                    inputs: [data.website.metadata && data.website.metadata.siteData, websiteId,
+                                this.context.user]
                 });
 
                 this.setState({website: data.website})
