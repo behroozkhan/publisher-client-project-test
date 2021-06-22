@@ -5,6 +5,8 @@ import Paper from "@material-ui/core/Paper/Paper";
 import TextField from "@material-ui/core/TextField/TextField";
 import Button from "@material-ui/core/Button/Button";
 import { Server, WeblancerContext } from './../Contexts/WeblancerContext';
+import ButtonBase from "@material-ui/core/ButtonBase";
+import ReactLoading from "react-loading";
 
 export default class NewWebsiteModal extends React.Component {
     static contextType = WeblancerContext;
@@ -12,7 +14,7 @@ export default class NewWebsiteModal extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
-            loading: false
+            loading: false,
         };
     }
 
@@ -26,6 +28,11 @@ export default class NewWebsiteModal extends React.Component {
 
     checkInputs = () => {
         let {newWebsite} = this.props;
+
+        if (!newWebsite.planId) {
+            this.context.showSnackbar('Select type of your website', 'warning');
+            return false;
+        }
         if (!newWebsite.name || newWebsite.name.length < 3) {
             this.context.showSnackbar('Website name must have at least 3 character', 'warning');
             return false;
@@ -53,6 +60,12 @@ export default class NewWebsiteModal extends React.Component {
         });
     };
 
+    selectPlanId = (planId) => {
+        let {newWebsite} = this.props;
+        newWebsite.planId = planId;
+        this.forceUpdate();
+    }
+
     render () {
         let {newWebsite} = this.props;
         return (
@@ -65,6 +78,48 @@ export default class NewWebsiteModal extends React.Component {
                     <span className="NewWebsiteModalTitle">
                         Create New Website
                     </span>
+
+                    <div className="NewWebsiteModalPlansRoot">
+                        <ButtonBase
+                            className="NewWebsiteModalPlan"
+                            onClick={() => {this.selectPlanId(1)}}
+                            style={{
+                                backgroundColor: newWebsite.planId === 1? "rgb(195 254 255)": undefined
+                            }}
+                        >
+                            <img draggable={false} className="NewWebsiteModalPlanImage"
+                                 src={require('../../images/landingpage.svg')} />
+                            <span className="NewWebsiteModalPlanTitle">
+                                Landing Page
+                            </span>
+                        </ButtonBase>
+                        <ButtonBase
+                            className="NewWebsiteModalPlan"
+                            onClick={() => {this.selectPlanId(2)}}
+                            style={{
+                                backgroundColor: newWebsite.planId === 2? "rgb(195 254 255)": undefined
+                            }}
+                        >
+                            <img draggable={false} className="NewWebsiteModalPlanImage"
+                                 src={require('../../images/business.svg')} />
+                            <span className="NewWebsiteModalPlanTitle">
+                                Business
+                            </span>
+                        </ButtonBase>
+                        <ButtonBase
+                            className="NewWebsiteModalPlan"
+                            onClick={() => {this.selectPlanId(3)}}
+                            style={{
+                                backgroundColor: newWebsite.planId === 3? "rgb(195 254 255)": undefined
+                            }}
+                        >
+                            <img draggable={false} className="NewWebsiteModalPlanImage"
+                                 src={require('../../images/store.svg')} />
+                            <span className="NewWebsiteModalPlanTitle">
+                                Store
+                            </span>
+                        </ButtonBase>
+                    </div>
                     <TextField
                         className="NewWebsiteModalName"
                         label="Website Name" variant="outlined" size="small"
@@ -88,6 +143,16 @@ export default class NewWebsiteModal extends React.Component {
                     >
                         Create
                     </Button>
+                    {
+                        this.state.loading &&
+                        <div className="NewWebsiteModalLoding">
+                            <ReactLoading type={'bubbles'}
+                                          color={"#7cfdf7"}
+                                          height={'85px'}
+                                          width={'85px'}
+                            />
+                        </div>
+                    }
                 </Paper>
             </Modal>
         )

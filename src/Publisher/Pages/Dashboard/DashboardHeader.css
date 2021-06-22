@@ -1,0 +1,75 @@
+.DashboardHeaderRoot{
+    display: flex;
+    width: 100%;
+    min-height: 48px;
+    align-items: center;
+    border-bottom: 1px solid #e3e3e3;
+}
+
+.DashboardHeaderLogo{
+    border-right: 1px solid #e3e3e3;
+    display: flex;
+    align-self: stretch;
+    align-items: center;
+}
+
+.DashboardHeaderLogoImage{
+    height: 24px;
+    margin: 0 12px;
+}
+
+.DashboardHeaderMenu{
+    flex: 1;
+}
+
+.DashboardHeaderRightBar{
+    display: flex;
+    margin-right: 12px;
+}
+
+.DashboardHeaderUser{
+}
+
+.DashboardHeaderUserImage{
+    width: 32px;
+    height: 32px;
+}
+
+.UserDDUserItem{
+    pointer-events: none;
+}
+
+.UserDDUserItemRoot{
+    display: flex;
+    align-items: center;
+}
+
+.UserDDUserItemIcon{
+    margin-right: 16px;
+}
+
+.UserDDUserItemName{
+
+}
+
+.UserDDAccountItem{
+
+}
+
+.UserDDCommonItem{
+
+}
+
+.UserDDFooterItem{
+    padding: 6px 16px;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.UserDDFooterItemRoot{
+}
+
+.UserDDFooterItemLogout{
+    padding: 8px !important;
+    border-radius: 4px !important;
+}

@@ -5,6 +5,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 
 .NewWebsiteModalPaper{
@@ -12,7 +13,7 @@
     max-width: 80%;
     display: flex;
     flex-direction: column;
-    padding: 16px;
+    padding: 16px 16px;
     outline: none;
     min-width: 400px;
     overflow-y: auto;
@@ -36,5 +37,40 @@
 }
 
 .NewWebsiteModalButton{
+    width: 150px !important;
+    place-self: flex-end !important;
+    text-transform: capitalize !important;
+}
 
+.NewWebsiteModalPlansRoot{
+    display: flex;
+    padding: 0 24px;
+    margin-bottom: 12px;
+}
+
+.NewWebsiteModalPlan{
+    display: flex;
+    flex-direction: column;
+    padding: 24px !important;
+}
+
+.NewWebsiteModalPlanImage{
+    width: 128px;
+    height: 128px;
+}
+
+.NewWebsiteModalPlanTitle{
+    margin-top: 12px;
+}
+
+.NewWebsiteModalLoding {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

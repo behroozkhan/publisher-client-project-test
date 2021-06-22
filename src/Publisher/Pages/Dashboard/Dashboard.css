@@ -1,25 +1,58 @@
 .DashboardPage {
     width: 100vw;
-    height: auto;
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: #cfcfcf;
-    padding: 16px;
     box-sizing: border-box;
+    background-color: white;
 }
 
 .DashboardNewWebsiteBox{
-    margin-bottom: 16px;
+    height: 144px;
+    width: 100%;
+    display: flex;
+    padding: 24px 70px;
+    box-sizing: border-box;
+    align-items: center;
+    background-color: #f0f4f7;
+}
+
+.DashboardNewWebsiteBoxLabels{
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.DashboardNewWebsiteBoxLabelTitle{
+    font-weight: bold;
+    font-size: 36px;
+}
+
+.DashboardNewWebsiteBoxLabelDesc{
+    font-size: 16px;
+}
+
+.DashboardNewWebsiteButton{
+    text-transform: capitalize !important;
+    border-radius: 100px !important;
+}
+
+.DashboardWebsiteGridRoot {
+    flex: 1;
+    width: 100%;
+    overflow: overlay;
+    background-color: #f0f4f7;
 }
 
 .DashboardWebsiteGrid{
-    flex: 1;
     width: 100%;
     box-sizing: border-box;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr ;
-    column-gap: 16px;
-    row-gap: 16px;
+    column-gap: 24px;
+    row-gap: 24px;
+    padding: 24px 70px ;
 }

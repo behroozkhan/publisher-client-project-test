@@ -4,6 +4,9 @@ import WebsiteItem from "./WebsiteItem";
 import Button from "@material-ui/core/Button/Button";
 import NewWebsiteModal from "./NewWebsiteModal";
 import { Server, WeblancerContext } from './../Contexts/WeblancerContext';
+import DashboardHeader from "./DashboardHeader";
+import ReactLoading from "react-loading";
+import Paper from "@material-ui/core/Paper/Paper";
 
 export default class Dashboard extends React.Component {
     static contextType = WeblancerContext;
@@ -47,7 +50,16 @@ export default class Dashboard extends React.Component {
     render () {
         return (
             <div className="DashboardPage">
+                <DashboardHeader/>
                 <div className="DashboardNewWebsiteBox">
+                    <div className="DashboardNewWebsiteBoxLabels">
+                        <span className="DashboardNewWebsiteBoxLabelTitle">
+                            My Sites
+                        </span>
+                        <span className="DashboardNewWebsiteBoxLabelDesc">
+                            Select a site to edit, view and open its dashboard.
+                        </span>
+                    </div>
                     <Button
                         className="DashboardNewWebsiteButton"
                         variant="contained" color="primary"
@@ -56,19 +68,21 @@ export default class Dashboard extends React.Component {
                         Create New Website
                     </Button>
                 </div>
-                <div className="DashboardWebsiteGrid">
-                    {console.log(this.state.websites)}
-                    {
-                        this.state.websites.map(website => {
-                            return (
-                                <WebsiteItem
-                                    key={website.name}
-                                    website={website}
-                                    onEditClick={this.onEditWebsite(website)}
-                                />
-                            )
-                        })
-                    }
+                <div className="DashboardWebsiteGridRoot">
+                    <div className="DashboardWebsiteGrid">
+                        {console.log(this.state.websites)}
+                        {
+                            this.state.websites.map(website => {
+                                return (
+                                    <WebsiteItem
+                                        key={website.name}
+                                        website={website}
+                                        onEditClick={this.onEditWebsite(website)}
+                                    />
+                                )
+                            })
+                        }
+                    </div>
                 </div>
 
                 {
@@ -81,6 +95,17 @@ export default class Dashboard extends React.Component {
                         }}
                         onClose={() => {this.setState({newWebsite: undefined})}}
                     />
+                }
+
+                {
+                    this.state.loading &&
+                    <div className="NewWebsiteModalLoding">
+                        <ReactLoading type={'bubbles'}
+                                      color={"#7cfdf7"}
+                                      height={'85px'}
+                                      width={'85px'}
+                        />
+                    </div>
                 }
             </div>
         )
