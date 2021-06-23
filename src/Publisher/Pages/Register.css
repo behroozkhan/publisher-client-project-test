@@ -4,7 +4,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #cfcfcf;
+    background-color: #e2dbee;
 }
 
 .RegisterBoundary{
@@ -13,8 +13,8 @@
     flex-direction: column;
     padding: 16px;
     border-radius: 4px;
-    background-color: #ffffff;
-    width: 600px;
+    width: 22%;
+    min-width: 300px;
 }
 
 .RegisterTitle{
@@ -23,14 +23,17 @@
     margin-bottom: 16px !important;
     font-size: 18px;
     font-weight: bold;
+    text-align: center;
 }
 
 .RegisterUsername{
     margin-bottom: 16px !important;
+    background-color: #e8f7f8 !important;
 }
 
 .RegisterPassword{
     margin-bottom: 16px !important;
+    background-color: #e8f7f8 !important;
 }
 
 .RegisterButtonsContainer{
@@ -39,9 +42,11 @@
 
 .RegisterEnter{
     margin-right: 16px !important;
+    text-transform: capitalize !important;
 }
 
 .RegisterLogin{
     position: absolute !important;
     right: 16px !important;
+    text-transform: capitalize !important;
 }

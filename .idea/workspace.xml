@@ -2,10 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="933005e2-ee57-427f-8778-3cb945299e55" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/public/images/login.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Publisher/Pages/Dashboard/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Publisher/Pages/Dashboard/Dashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Publisher/Pages/Dashboard/WebsiteItem.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Publisher/Pages/Dashboard/WebsiteItem.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Publisher/Pages/Dashboard/WebsiteItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Publisher/Pages/Dashboard/WebsiteItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Publisher/Auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Publisher/Auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Publisher/Pages/Dashboard/DashboardHeader.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Publisher/Pages/Dashboard/DashboardHeader.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Publisher/Pages/Dashboard/NewWebsiteModal.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Publisher/Pages/Dashboard/NewWebsiteModal.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Publisher/Pages/Login.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Publisher/Pages/Login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Publisher/Pages/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Publisher/Pages/Login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Publisher/Pages/Register.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Publisher/Pages/Register.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Publisher/Pages/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Publisher/Pages/Register.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Publisher/images/brand.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Publisher/images/brand.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,14 +44,16 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/Publisher/images" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/images" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2020.3.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="H:\Weblancer\WeblancerServers\PublisherServer\publisher-client-project-test\public\images" />
       <recent name="H:\Weblancer\WeblancerServers\PublisherServer\publisher-client-project-test\src\Publisher\images" />
       <recent name="H:\Weblancer\WeblancerServers\PublisherServer\publisher-client-project-test\src\Publisher\Pages" />
     </key>
@@ -83,7 +91,7 @@
       <workItem from="1601287731024" duration="381000" />
       <workItem from="1624380030603" duration="1258000" />
       <workItem from="1624381325489" duration="8507000" />
-      <workItem from="1624391796961" duration="910000" />
+      <workItem from="1624391796961" duration="6474000" />
     </task>
     <servers />
   </component>

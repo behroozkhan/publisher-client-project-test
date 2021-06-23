@@ -4,6 +4,7 @@ import { WeblancerContext } from '../Contexts/WeblancerContext';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import Auth from "../../Auth";
 
 export default class DashboardHeader extends React.Component {
     static contextType = WeblancerContext;
@@ -97,7 +98,8 @@ export default class DashboardHeader extends React.Component {
                                 <ButtonBase
                                     className="UserDDFooterItemLogout"
                                     onClick={(e) => {
-                                        // TODO got to logout user
+                                        Auth.logout();
+                                        this.context.pageRedirect("/login");
                                     }}
                                 >
                                     <div>

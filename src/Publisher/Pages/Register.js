@@ -5,6 +5,7 @@ import './Register.css';
 import Paper from "@material-ui/core/Paper/Paper";
 import config from '../../Config/config.json';
 import { Server, WeblancerContext } from './Contexts/WeblancerContext';
+import ReactLoading from "react-loading";
 
 export default class Register extends React.Component {
     static contextType = WeblancerContext;
@@ -13,7 +14,7 @@ export default class Register extends React.Component {
         super(props);
 
         this.state = {
-
+            loading: false
         };
     }
 
@@ -35,12 +36,14 @@ export default class Register extends React.Component {
         if (!this.checkInputs())
             return;
 
+        this.setState({loading: true});
         Server.register(this.username, this.password, (success, data, error) => {
             if (success) {
                 this.context.showSnackbar('User created successfully', 'success');
                 this.context.pageRedirect("/login");
             } else {
                 this.context.showSnackbar(error, 'error');
+                this.setState({loading: false})
             }
         });
     };
@@ -52,11 +55,17 @@ export default class Register extends React.Component {
     render () {
         return (
             <div className="RegisterPage">
-                <Paper className="RegisterBoundary">
+                <div className="LoginBG" >
+                    <img className="LoginBGImage" src={process.env.PUBLIC_URL + "/images/login.jpg"}/>
+                </div>
+                <div className="RegisterBoundary">
+                    <img draggable={false} className="LoginWeblancerLogo"
+                         src={require('../images/brand.png')} />
                     <span className="RegisterTitle">
-                        {config.BrandName} Website Builder
+                        Register
                     </span>
                     <TextField
+                        autocomplete="off"
                         className="RegisterUsername"
                         label="Username" variant="outlined" size="small"
                         onChange={(e) => {
@@ -64,6 +73,8 @@ export default class Register extends React.Component {
                         }}
                     />
                     <TextField
+                        type="password"
+                        autocomplete="off"
                         className="RegisterPassword"
                         label="Password" variant="outlined" size="small"
                         onChange={(e) => {
@@ -71,6 +82,8 @@ export default class Register extends React.Component {
                         }}
                     />
                     <TextField
+                        type="password"
+                        autocomplete="off"
                         className="RegisterPassword"
                         label="Retype Password" variant="outlined" size="small"
                         onChange={(e) => {
@@ -94,7 +107,17 @@ export default class Register extends React.Component {
                             Login
                         </Button>
                     </div>
-                </Paper>
+                </div>
+                {
+                    this.state.loading &&
+                    <div className="NewWebsiteModalLoding">
+                        <ReactLoading type={'bubbles'}
+                                      color={"#7cfdf7"}
+                                      height={'85px'}
+                                      width={'85px'}
+                        />
+                    </div>
+                }
             </div>
         )
     }

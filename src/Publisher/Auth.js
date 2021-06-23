@@ -44,7 +44,8 @@ class AuthManager {
     }
 }
 
-let Auth = new AuthManager("https://publisher.weblancer.ir/publisher_1/client/api");
-// let Auth = new AuthManager('/api');
+// TODO for test
+// let Auth = new AuthManager("https://publisher.weblancer.ir/publisher_1/client/api");
+let Auth = new AuthManager('/api');
 
 export default Auth;
