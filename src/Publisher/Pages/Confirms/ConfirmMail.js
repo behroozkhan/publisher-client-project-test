@@ -1,6 +1,7 @@
 import React from 'react';
 import './ConfirmMail.css';
 import { Server, WeblancerContext } from './../Contexts/WeblancerContext';
+import Button from '@material-ui/core/Button';
 
 export default class ConfirmMail extends React.Component {
     static contextType = WeblancerContext;
@@ -12,12 +13,13 @@ export default class ConfirmMail extends React.Component {
             loading: true,
             confirmed: false
         };
-
-        console.log("ConfirmMail constructor", props.hash)
     }
 
     componentDidMount(){
         this.mounted = true;
+        if (!this.props.hash) {
+            window.requestAnimationFrame(() => {this.context.pageRedirect('/login')})
+        }
         this.load();
     }
 
@@ -40,12 +42,30 @@ export default class ConfirmMail extends React.Component {
     render () {
         return (
             <div className="ConfirmMailRoot">
-            {
-                this.state.loading && "Checking ..."
-            }
-            {
-                !this.state.loading && this.state.confirmed && "Confirmed"
-            }
+                <div className="ConfirmMailContainer">
+                {
+                    this.state.loading &&
+                    <div className="ConfirmMailChecking">
+                        <span>Checking verification link ...</span>
+                    </div>
+                }
+                {
+                    !this.state.loading && this.state.confirmed &&
+                    <div className="ConfirmMailConfirmed">
+                        <span className="ConfirmMailConfirmedTitle">Thank you for verifying your email address</span>
+                        <span className="ConfirmMailConfirmedDesc">Email address verfied successfully</span>
+
+                        <Button className="ForgetPasswordChange"
+                                onClick={(e) => {
+                                    this.context.pageRedirect('login');
+                                }}
+                                color="primary"
+                        >
+                            Login
+                        </Button>
+                    </div>
+                }
+                </div>
             </div>
         )
     }

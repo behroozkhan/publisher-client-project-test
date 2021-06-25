@@ -77,6 +77,60 @@ export default class ServerManager {
             })
     }
 
+    changepasswordrequest = (inputs, cb) => {
+        axios.post(`${this.baseUrl}/user/changepasswordrequest`, inputs, this.getOptions())
+            .then(res => {
+                if (res.data.success) {
+                    cb(true, res.data.data.website);
+                } else {
+                    cb(false, undefined, res.data.message);
+                }
+            })
+            .catch(error => {
+                if (error.response && error.response.status === 401) {
+                    this.context.pageRedirect('/login');
+                } else {
+                    cb(false, undefined, error);
+                }
+            })
+    }
+
+    changepassword = (inputs, cb) => {
+        axios.post(`${this.baseUrl}/user/changepassword`, inputs, this.getOptions())
+            .then(res => {
+                if (res.data.success) {
+                    cb(true, res.data.data.website);
+                } else {
+                    cb(false, undefined, res.data.message);
+                }
+            })
+            .catch(error => {
+                if (error.response && error.response.status === 401) {
+                    this.context.pageRedirect('/login');
+                } else {
+                    cb(false, undefined, error);
+                }
+            })
+    }
+
+    changePassword = (inputs, cb) => {
+        axios.post(`${this.baseUrl}/user/changepassword`, inputs, this.getOptions())
+            .then(res => {
+                if (res.data.success) {
+                    cb(true, res.data.data.website);
+                } else {
+                    cb(false, undefined, res.data.message);
+                }
+            })
+            .catch(error => {
+                if (error.response && error.response.status === 401) {
+                    this.context.pageRedirect('/login');
+                } else {
+                    cb(false, undefined, error);
+                }
+            })
+    }
+
     getUserWebsites = (cb) => {
         axios.get(`${this.baseUrl}/website`, this.getOptions())
             .then(res => {

@@ -2,8 +2,6 @@ import React from 'react';
 import TextField from "@material-ui/core/TextField/TextField";
 import Button from "@material-ui/core/Button/Button";
 import './Register.css';
-import Paper from "@material-ui/core/Paper/Paper";
-import config from '../../Config/config.json';
 import { Server, WeblancerContext } from './Contexts/WeblancerContext';
 import ReactLoading from "react-loading";
 

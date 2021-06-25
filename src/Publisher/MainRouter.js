@@ -12,6 +12,8 @@ import { WeblancerContext } from './Pages/Contexts/WeblancerContext';
 import qs from 'qs';
 import { object } from "prop-types";
 import ConfirmMail from './Pages/Confirms/ConfirmMail';
+import ForgetPassword from "./Pages/Confirms/ForgetPassword";
+import ForgetPasswordRequest from "./Pages/ForgetPasswordRequest";
 
 class MainRouter extends React.Component {
     static contextType = WeblancerContext;
@@ -25,7 +27,6 @@ class MainRouter extends React.Component {
 
     componentDidMount(){
         this.context.setRouter(this);
-
     }
 
     redirect = (redirectPath, redirectProps) => {
@@ -53,36 +54,44 @@ class MainRouter extends React.Component {
         }
 
         return (
-                <Switch>
-                    <Route path="/login">
-                        <Login {...this.getRedirectProps()}/>
-                    </Route>
+            <Switch>
+                <Route path="/login">
+                    <Login {...this.getRedirectProps()}/>
+                </Route>
 
-                    <Route path="/register">
-                        <Register {...this.getRedirectProps()}/>
-                    </Route>
+                <Route path="/register">
+                    <Register {...this.getRedirectProps()}/>
+                </Route>
 
-                    <Route path="/mailconfirm">
-                        <ConfirmMail {...this.getRedirectProps()}/>
-                    </Route>
+                <Route path="/mailconfirm">
+                    <ConfirmMail {...this.getRedirectProps()}/>
+                </Route>
 
-                    <PrivateRoute path="/dashboard">
-                        <Dashboard {...this.getRedirectProps()}/>
-                    </PrivateRoute>
+                <Route path="/forget">
+                    <ForgetPasswordRequest {...this.getRedirectProps()}/>
+                </Route>
 
-                    <PrivateRoute path="/holder/:id">
-                        <EditorHolder/>
-                    </PrivateRoute>
+                <Route path="/recovery">
+                    <ForgetPassword {...this.getRedirectProps()}/>
+                </Route>
 
-                    <PrivateRoute path="/">
-                        <Redirect
-                            to={{
-                                pathname: "/dashboard",
-                                state: { from: "/" }
-                            }}
-                        />
-                    </PrivateRoute>
-                </Switch>
+                <PrivateRoute path="/dashboard">
+                    <Dashboard {...this.getRedirectProps()}/>
+                </PrivateRoute>
+
+                <PrivateRoute path="/holder/:id">
+                    <EditorHolder/>
+                </PrivateRoute>
+
+                <PrivateRoute path="/">
+                    <Redirect
+                        to={{
+                            pathname: "/dashboard",
+                            state: { from: "/" }
+                        }}
+                    />
+                </PrivateRoute>
+            </Switch>
         )
     }
 }

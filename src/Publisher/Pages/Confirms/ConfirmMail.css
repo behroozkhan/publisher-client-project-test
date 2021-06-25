@@ -1,3 +1,43 @@
 .ConfirmMailRoot{
-    
+    background-color: rgb(188, 239, 248);
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ConfirmMailContainer{
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    padding: 24px;
+    min-width: 600px;
+}
+
+.ConfirmMailChecking{
+
+}
+
+.ConfirmMailConfirmed{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.ConfirmMailConfirmedTitle {
+    font-weight: bold;
+    font-size: 1.5em;
+    margin-bottom: 12px;
+}
+
+.ConfirmMailConfirmedDesc{
+    margin-bottom: 12px;
+}
+
+.ConfirmMailConfirmedLogin{
+    text-transform: none !important;
 }

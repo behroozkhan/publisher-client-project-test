@@ -2,11 +2,10 @@ import React from 'react';
 import TextField from "@material-ui/core/TextField/TextField";
 import Button from "@material-ui/core/Button/Button";
 import './Login.css';
-import Auth from "../Auth";
-import { WeblancerContext } from './Contexts/WeblancerContext';
+import {Server,  WeblancerContext } from './Contexts/WeblancerContext';
 import ReactLoading from "react-loading";
 
-export default class Login extends React.Component {
+export default class ForgetPasswordRequest extends React.Component {
     static contextType = WeblancerContext;
 
     constructor (props) {
@@ -18,30 +17,25 @@ export default class Login extends React.Component {
     }
 
     checkInputs = () => {
-        if (!this.username || this.username.length < 3) {
+        if (!this.email || this.email.length < 3) {
             this.context.showSnackbar('Username must have at least 3 character', 'warning');
-            return false;
-        }
-
-        if (!this.password || this.password.length < 3) {
-            this.context.showSnackbar('Password must have at least 3 character', 'warning');
             return false;
         }
 
         return true;
     };
 
-    onLoginClick = (e) => {
+    onForgetClick = (e) => {
         if (!this.checkInputs())
             return;
 
         this.setState({loading: true});
-        Auth.authenticate(this.username, this.password, (success, data, error) => {
+        Server.changepasswordrequest({
+            email: this.email
+        }, (success, data, error) => {
             if (success) {
-                this.context.showSnackbar('User logged in successfully', 'success');
-                this.context.fetchUser(() => {
-                    this.context.pageRedirect("/dashboard");
-                });
+                this.context.showSnackbar('Recovery Email Sent', 'success');
+                this.setState({loading: false})
             } else {
                 this.context.showSnackbar(error, 'error');
                 console.log("login error", error)
@@ -54,9 +48,9 @@ export default class Login extends React.Component {
         this.context.pageRedirect("/register");
     };
 
-    onForgetClick = () => {
-        this.context.pageRedirect("/forget");
-    }
+    onLoginClick = (e) => {
+        this.context.pageRedirect("/login");
+    };
 
     render () {
         return (
@@ -68,22 +62,14 @@ export default class Login extends React.Component {
                     <img draggable={false} className="LoginWeblancerLogo"
                          src={require('../images/brand.png')} />
                     <span className="LoginTitle">
-                        Login
+                        Password Recovery
                     </span>
                     <TextField
                         autoComplete="on"
                         className="LoginUsername"
-                        label="Username" variant="outlined" size="small"
+                        label="Email" variant="outlined" size="small"
                         onChange={(e) => {
-                            this.username = e.target.value;
-                        }}
-                    />
-                    <TextField
-                        autoComplete="on"
-                        className="LoginPassword"
-                        label="Password" variant="outlined" size="small" type="password"
-                        onChange={(e) => {
-                            this.password = e.target.value;
+                            this.email = e.target.value;
                         }}
                     />
 
@@ -91,10 +77,12 @@ export default class Login extends React.Component {
                         <Button
                             className="LoginEnter"
                             variant="contained" color="primary"
-                            onClick={this.onLoginClick}
+                            onClick={this.onForgetClick}
                         >
-                            Login
+                            Send Email
                         </Button>
+
+
                         <Button
                             className="LoginRegister"
                             color="primary"
@@ -103,13 +91,12 @@ export default class Login extends React.Component {
                             Register
                         </Button>
                     </div>
-
                     <Button
                         className="LoginForget"
                         color="primary"
-                        onClick={this.onForgetClick}
+                        onClick={this.onLoginClick}
                     >
-                        Forget my password
+                        Login
                     </Button>
                 </div>
 
