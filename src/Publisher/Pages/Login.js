@@ -73,7 +73,7 @@ export default class Login extends React.Component {
                         Login
                     </span>
                     <TextField
-                        autocomplete="on"
+                        autoComplete="on"
                         className="LoginUsername"
                         label="Username" variant="outlined" size="small"
                         onChange={(e) => {
@@ -81,7 +81,7 @@ export default class Login extends React.Component {
                         }}
                     />
                     <TextField
-                        autocomplete="on"
+                        autoComplete="on"
                         className="LoginPassword"
                         label="Password" variant="outlined" size="small" type="password"
                         onChange={(e) => {

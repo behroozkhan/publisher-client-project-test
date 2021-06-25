@@ -17,8 +17,8 @@ export default class ServerManager {
         }
     };
 
-    register = (username, password, cb) => {
-        axios.post(`${this.baseUrl}/user/register`, {username, password}, this.getOptions())
+    register = (inputs, cb) => {
+        axios.post(`${this.baseUrl}/user/register`, inputs, this.getOptions())
             .then(res => {
                 if (res.data.success) {
                     cb(true, res.data.data);
@@ -46,6 +46,24 @@ export default class ServerManager {
             .then(res => {
                 if (res.data.success) {
                     cb(true, res.data.data);
+                } else {
+                    cb(false, undefined, res.data.message);
+                }
+            })
+            .catch(error => {
+                if (error.response && error.response.status === 401) {
+                    this.context.pageRedirect('/login');
+                } else {
+                    cb(false, undefined, error);
+                }
+            })
+    }
+
+    confirmMail = (hash, cb) => {
+        axios.post(`${this.baseUrl}/user/mailconfirm`, {hash}, this.getOptions())
+            .then(res => {
+                if (res.data.success) {
+                    cb(true, res.data.data.website);
                 } else {
                     cb(false, undefined, res.data.message);
                 }

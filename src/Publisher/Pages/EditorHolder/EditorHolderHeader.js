@@ -3,6 +3,7 @@ import './EditorHolderHeader.css';
 import Button from "@material-ui/core/Button/Button";
 import { WeblancerContext } from '../Contexts/WeblancerContext';
 import SaveWebsite from './Components/SaveWebsite';
+import ButtonBase from '@material-ui/core/ButtonBase';
 
 export default class EditorHolderHeader extends React.Component {
     static contextType = WeblancerContext;
@@ -52,7 +53,13 @@ export default class EditorHolderHeader extends React.Component {
 
                 </div>
                 <div className="LeftHolder">
-                    Menus
+                    <ButtonBase
+                        onClick={(e) => {
+                            this.context.pageRedirect('/dashboard');
+                        }}
+                    >
+                        <span>Dashboard</span>
+                    </ButtonBase>
                 </div>
                 <div className="RightHolder">
                     <Button className="RestoreEditorButton" onClick={this.props.restoreEditor}>

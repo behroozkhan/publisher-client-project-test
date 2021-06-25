@@ -38,8 +38,10 @@ export default class PublishWebsite extends React.Component {
         Server.publishProcess(websiteId, (success, data, error) => {
             if (!this.mounted)
                 return;
+            console.log("load 1");
 
             if (success) {
+                console.log("load 2", data, data.longProcessId);
                 if (data.longProcessId) {
                     this.fetchLongProcessAsync(data.longProcessId);
                     return;
@@ -51,6 +53,7 @@ export default class PublishWebsite extends React.Component {
             Server.publishRequest(websiteId, (success, data, error) => {
                 if (!this.mounted)
                     return;
+                console.log("load 3", success, data, data.longProcessId);
                 
                 if (success) {
                     if (data.longProcessId) {
@@ -66,6 +69,7 @@ export default class PublishWebsite extends React.Component {
     };
 
     fetchLongProcessAsync = (longProcessId) => {
+        console.log("fetchLongProcessAsync");
         this.setState({status: 'publishing'});
         let time = 0;
         this.fetchLongProcess(longProcessId);
@@ -76,6 +80,7 @@ export default class PublishWebsite extends React.Component {
     };
 
     fetchLongProcess = (longProcessId) => {
+        console.log("fetchLongProcess");
         Server.getLongProcess(longProcessId, (success, data, error) => {
             if (!this.mounted)
                 return;
@@ -197,7 +202,11 @@ export default class PublishWebsite extends React.Component {
                                     Upgrade Now
                                 </Button> */}
                                 
-                                <Button className="PublishWebsiteNextDashboard">
+                                <Button className="PublishWebsiteNextDashboard"
+                                    onClick={(e) => {
+                                        this.context.pageRedirect('/dashboard');
+                                    }}
+                                >
                                     Dashboard
                                 </Button>
                             </div>

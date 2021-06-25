@@ -9,6 +9,9 @@ import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import EditorHolder from "./Pages/EditorHolder/EditorHolder";
 import { WeblancerContext } from './Pages/Contexts/WeblancerContext';
+import qs from 'qs';
+import { object } from "prop-types";
+import ConfirmMail from './Pages/Confirms/ConfirmMail';
 
 class MainRouter extends React.Component {
     static contextType = WeblancerContext;
@@ -22,12 +25,21 @@ class MainRouter extends React.Component {
 
     componentDidMount(){
         this.context.setRouter(this);
+
     }
 
     redirect = (redirectPath, redirectProps) => {
         this.redirectPath = redirectPath;
         this.setState({reload: true, redirectProps});
     };
+
+    getRedirectProps = () => {
+        let {redirectProps} = this.state;
+        let querryString = qs.parse(this.props.location.search, { ignoreQueryPrefix: true });
+        redirectProps = Object.assign(redirectProps || {}, querryString || {});
+
+        return redirectProps;
+    }
 
     render () {
         if (this.redirectPath) {
@@ -43,15 +55,19 @@ class MainRouter extends React.Component {
         return (
                 <Switch>
                     <Route path="/login">
-                        <Login {...this.state.redirectProps}/>
+                        <Login {...this.getRedirectProps()}/>
                     </Route>
 
                     <Route path="/register">
-                        <Register {...this.state.redirectProps}/>
+                        <Register {...this.getRedirectProps()}/>
+                    </Route>
+
+                    <Route path="/mailconfirm">
+                        <ConfirmMail {...this.getRedirectProps()}/>
                     </Route>
 
                     <PrivateRoute path="/dashboard">
-                        <Dashboard {...this.state.redirectProps}/>
+                        <Dashboard {...this.getRedirectProps()}/>
                     </PrivateRoute>
 
                     <PrivateRoute path="/holder/:id">

@@ -36,39 +36,52 @@ export default class EditorHolder extends React.Component {
     }
 
     componentDidMount(){
+        console.log("componentDidMount EditorHolder");
         this.mounted = true;
         this.init();
         this.load();
     }
 
     registerKeyEvent = () => {
-        window.addEventListener("keydown",(e) =>{
-            let jsonedEvent = {
-                which: e.which,
-                keyCode: e.keyCode,
-                ctrlKey: e.ctrlKey,
-                type: "keydown",
-            };
+        window.addEventListener("keydown", this.keyEventHandler);
+    }
 
-            e.preventDefault();
-            
-            console.log("jsonedEvent", e, jsonedEvent);
-            this.postMessage({
-                type: "Event",
-                inputs: [jsonedEvent]
-            });
+    unRegisterKeyEvent = () => {
+        window.removeEventListener("keydown", this.keyEventHandler);
+    }
+
+    keyEventHandler = (e) => {
+        let jsonedEvent = {
+            which: e.which,
+            keyCode: e.keyCode,
+            ctrlKey: e.ctrlKey,
+            type: "keydown",
+        };
+
+        e.preventDefault();
+        
+        console.log("jsonedEvent", e, jsonedEvent);
+        this.postMessage({
+            type: "Event",
+            inputs: [jsonedEvent]
         });
     }
 
     componentWillUnmount(){
+        console.log("componentWillUnmount EditorHolder");
+        this.unRegisterKeyEvent();
+        this.iFrameCommunicator.dispose();
         this.mounted = false;
     }
 
     onMessage = (data, res) => {
+        if (!this.getIframeWindow())
+            return;
         EditorHolderController.onMessage(data, res, this);
     };
 
     getIframeWindow = () => {
+        console.log("getIframeWindow", this.editorIframe.current);
         return this.editorIframe.current && this.editorIframe.current.contentWindow;
     };
 
@@ -145,8 +158,8 @@ export default class EditorHolder extends React.Component {
                     clearInterval(this.loadingInterval);
                     this.setState({
                         // TODO for test
-                        // editorUrl: "http://localhost:3001",
-                        editorUrl: data.longProcess.metaData.url,
+                        editorUrl: "http://localhost:3001",
+                        // editorUrl: data.longProcess.metaData.url,
                         editorLongProcessId: data.longProcess.id
                     });
                 }

@@ -8,13 +8,19 @@ export default class IFrameCommunicator {
         this.callbacks = {};
         this.responses = {};
 
-        window.addEventListener("message", (event) => {
-            if (this.origin && event.origin !== this.origin) {
-                return;
-            }
+        window.addEventListener("message", this.messageHandler);
+    }
 
-            this.processIncomingMessage(event);
-        });
+    messageHandler = (event) => {
+        if (this.origin && event.origin !== this.origin) {
+            return;
+        }
+
+        this.processIncomingMessage(event);
+    }
+
+    dispose = () => {
+        window.removeEventListener("message", this.messageHandler);
     }
 
     processIncomingMessage = (event) => {
@@ -25,6 +31,7 @@ export default class IFrameCommunicator {
 
         if (data && data.r) {
             let r = data.r;
+            console.log("processIncomingMessage r", r, this.callbacks[r])
             this.callbacks[r](data);
             delete this.callbacks[r];
         }
@@ -47,12 +54,16 @@ export default class IFrameCommunicator {
         if (callback) {
             this.counter++;
             data.c = this.counter;
+            console.log("post c", data.c, callback)
             this.callbacks[data.c] = callback;
         }
 
         data.authKey = this.authKey;
 
         let otherWindow = typeof(this.otherWindow) === 'function' ? this.otherWindow() : this.otherWindow;
+
+        if (!otherWindow)
+            return;
 
         otherWindow.postMessage(data, this.origin || "*");
     };
