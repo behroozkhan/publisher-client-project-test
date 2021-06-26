@@ -45,7 +45,7 @@ export default class WebsiteItem extends React.Component {
                     </Button>
                     <Button
                         className="WebsiteItemEditButton"
-                        // onClick={this.props.onEditClick}
+                        onClick={this.props.onDashboarClick}
                     >
                         Dashboard
                     </Button>

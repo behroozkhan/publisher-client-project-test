@@ -29,7 +29,14 @@ class MainRouter extends React.Component {
         this.context.setRouter(this);
     }
 
+    removeQuery = () => {
+        var newurl = window.location.protocol 
+        + "//" + window.location.host + window.location.pathname;
+        window.history.pushState({path:newurl},'',newurl);
+    }
+
     redirect = (redirectPath, redirectProps) => {
+        this.removeQuery();
         this.redirectPath = redirectPath;
         this.setState({reload: true, redirectProps});
     };
@@ -79,8 +86,9 @@ class MainRouter extends React.Component {
                     <Dashboard {...this.getRedirectProps()}/>
                 </PrivateRoute>
 
-                <PrivateRoute path="/holder/:id">
-                    <EditorHolder/>
+                {/* <PrivateRoute path="/holder/:id"> */}
+                <PrivateRoute path="/holder">
+                    <EditorHolder  {...this.getRedirectProps()}/>
                 </PrivateRoute>
 
                 <PrivateRoute path="/">

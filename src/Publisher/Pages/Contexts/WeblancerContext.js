@@ -69,7 +69,6 @@ class WeblancerContextProvider extends React.Component {
     }
 
     pageRedirect = (redirectPath, redirectProps) => {
-        console.log("pageRedirect", redirectPath)
         this.state.router.redirect(redirectPath, redirectProps);
     };
 

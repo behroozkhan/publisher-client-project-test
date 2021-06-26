@@ -15,13 +15,14 @@ export default class EditorHolder extends React.Component {
     constructor (props) {
         super(props);
 
-        let pathname = window.location.pathname;
-        let paths = pathname.split('/');
-        let websiteId = paths[paths.length - 1];
+        // let pathname = window.location.pathname;
+        // let paths = pathname.split('/');
+        // let websiteId = paths[paths.length - 1];
 
         this.state = {
             loading: true,
-            websiteId,
+            websiteId: props.websiteId,
+            dashboard: props.dashboard,
             website: undefined,
             zoomScale: 1,
             progress: {open: false}
@@ -36,10 +37,33 @@ export default class EditorHolder extends React.Component {
     }
 
     componentDidMount(){
-        console.log("componentDidMount EditorHolder");
+        this.resolveSearch();
+
+        if (!this.props.websiteId) {
+            window.requestAnimationFrame(() => {
+                this.context.pageRedirect('/login');
+            });
+            return;
+        }
         this.mounted = true;
         this.init();
         this.load();
+    }
+
+    resolveSearch = () => {
+        if (!window.location.search.includes('websiteId=')) {
+            var newurl = window.location.protocol 
+            + "//" + window.location.host + window.location.pathname 
+            + `?websiteId=${this.props.websiteId}`;
+            window.history.pushState({path:newurl},'',newurl);
+        }
+        
+        if (!window.location.search.includes('dashboard=') && this.props.dashboard) {
+            var newurl = window.location.protocol 
+            + "//" + window.location.host + window.location.pathname + window.location.search 
+            + `&dashboard=${this.props.dashboard}`;
+            window.history.pushState({path:newurl},'',newurl);
+        }
     }
 
     registerKeyEvent = () => {
@@ -95,6 +119,14 @@ export default class EditorHolder extends React.Component {
         })
     };
 
+    setDashboard = (dashboard) => {
+        console.log("setDashboard", dashboard);
+        this.context.pageRedirect('holder', {
+            websiteId: this.props.websiteId,
+            dashboard
+        });
+    }
+
     onEditorMounted = (callback) => {
         let {websiteId} = this.state;
         
@@ -103,11 +135,12 @@ export default class EditorHolder extends React.Component {
         Server.getWebsite(websiteId, (success, data, error) => {
             if (success) {
                 console.log("website", data.website);
+                let siteData = data.website.metadata && data.website.metadata.siteData
+                if (data.website.metadata) delete data.website.metadata.siteData;
                 this.postMessage({
                     type: "Editor",
                     func: "onSiteDataUpdated",
-                    inputs: [data.website.metadata && data.website.metadata.siteData, websiteId,
-                                this.context.user]
+                    inputs: [siteData, data.website, this.context.user, this.state.dashboard]
                 });
 
                 this.setState({website: data.website})

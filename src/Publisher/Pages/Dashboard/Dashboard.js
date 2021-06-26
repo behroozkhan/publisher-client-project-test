@@ -43,7 +43,14 @@ export default class Dashboard extends React.Component {
         e.stopPropagation();
         e.preventDefault();
 
-        this.context.pageRedirect(`/holder/${website.id}`);
+        this.context.pageRedirect(`/holder`, {websiteId: website.id});
+    };
+
+    onDashboarClick = (website) => (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+
+        this.context.pageRedirect(`/holder`, {websiteId: website.id, dashboard: true});
     };
 
     render () {
@@ -77,6 +84,7 @@ export default class Dashboard extends React.Component {
                                         key={website.name}
                                         website={website}
                                         onEditClick={this.onEditWebsite(website)}
+                                        onDashboarClick={this.onDashboarClick(website)}
                                     />
                                 )
                             })
