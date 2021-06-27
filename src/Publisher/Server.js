@@ -333,6 +333,24 @@ export default class ServerManager {
             })
     }
 
+    put = (route, input, cb) => {
+        axios.put(`${this.baseUrl}${route}`, input, this.getOptions())
+            .then(res => {
+                if (res.data.success) {
+                    cb(true, res.data.data);
+                } else {
+                    cb(false, undefined, res.data.message);
+                }
+            })
+            .catch(error => {
+                if (error.response && error.response.status === 401) {
+                    this.context.pageRedirect('/login');
+                } else {
+                    cb(false, undefined, error);
+                }
+            })
+    }
+
     get = (route, cb) => {
         axios.get(`${this.baseUrl}${route}`, this.getOptions())
             .then(res => {

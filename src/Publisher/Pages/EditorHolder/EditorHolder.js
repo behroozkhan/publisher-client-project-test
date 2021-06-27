@@ -191,8 +191,8 @@ export default class EditorHolder extends React.Component {
                     clearInterval(this.loadingInterval);
                     this.setState({
                         // TODO for test
-                        editorUrl: "http://localhost:3001",
-                        // editorUrl: data.longProcess.metaData.url,
+                        // editorUrl: "http://localhost:3001",
+                        editorUrl: data.longProcess.metaData.url,
                         editorLongProcessId: data.longProcess.id
                     });
                 }
@@ -226,6 +226,11 @@ export default class EditorHolder extends React.Component {
             }
         })
     };
+
+    showSnackbar = (message, type) => {
+        console.log("showSnackbar", message, type)
+        this.context.showSnackbar(message || "", type || 'warning');
+    }
 
     saveWebsite = (silence, callback) => {
         this.setState({

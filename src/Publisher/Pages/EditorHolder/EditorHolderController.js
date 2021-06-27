@@ -32,6 +32,14 @@ EditorHolderController.onMessage = (data, res, holder) => {
                 res(responseData);
             });
         }
+        else if (data.method.toLowerCase() === "put") {
+            Server.put(data.route, data.input, (success, resData, error) => {
+                let responseData = {
+                    success, data: resData, error: error && error.message
+                };
+                res(responseData);
+            });
+        }
         return;
     }
 };

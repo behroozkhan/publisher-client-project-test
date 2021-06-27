@@ -10,7 +10,6 @@ import Register from "./Pages/Register";
 import EditorHolder from "./Pages/EditorHolder/EditorHolder";
 import { WeblancerContext } from './Pages/Contexts/WeblancerContext';
 import qs from 'qs';
-import { object } from "prop-types";
 import ConfirmMail from './Pages/Confirms/ConfirmMail';
 import ForgetPassword from "./Pages/Confirms/ForgetPassword";
 import ForgetPasswordRequest from "./Pages/ForgetPasswordRequest";
