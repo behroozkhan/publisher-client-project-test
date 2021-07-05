@@ -37,13 +37,14 @@ class MainRouter extends React.Component {
     redirect = (redirectPath, redirectProps) => {
         this.removeQuery();
         this.redirectPath = redirectPath;
+        console.log("redirect", redirectPath, redirectProps)
         this.setState({reload: true, redirectProps});
     };
 
     getRedirectProps = () => {
         let {redirectProps} = this.state;
-        let querryString = qs.parse(this.props.location.search, { ignoreQueryPrefix: true });
-        redirectProps = Object.assign(redirectProps || {}, querryString || {});
+        let queryString = qs.parse(this.props.location.search, { ignoreQueryPrefix: true });
+        redirectProps = Object.assign(queryString || {}, redirectProps || {});
 
         return redirectProps;
     }

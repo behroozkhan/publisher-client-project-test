@@ -51,17 +51,20 @@ export default class EditorHolder extends React.Component {
     }
 
     resolveSearch = () => {
+        console.log("resolveSearch", this.props.websiteId, this.props.dashboard, !window.location.search, window.location.search? "&" : "?")
         if (!window.location.search.includes('websiteId=')) {
-            var newurl = window.location.protocol 
-            + "//" + window.location.host + window.location.pathname 
-            + `?websiteId=${this.props.websiteId}`;
+            let newurl = window.location.protocol 
+            + "//" + window.location.host + window.location.pathname + window.location.search 
+            + (window.location.search? "&" : "?")
+            + `websiteId=${this.props.websiteId}`;
             window.history.pushState({path:newurl},'',newurl);
         }
         
         if (!window.location.search.includes('dashboard=') && this.props.dashboard) {
-            var newurl = window.location.protocol 
+            let newurl = window.location.protocol 
             + "//" + window.location.host + window.location.pathname + window.location.search 
-            + `&dashboard=${this.props.dashboard}`;
+            + (window.location.search? "&" : "?")
+            + `dashboard=${this.props.dashboard}`;
             window.history.pushState({path:newurl},'',newurl);
         }
     }
@@ -84,7 +87,6 @@ export default class EditorHolder extends React.Component {
 
         e.preventDefault();
         
-        console.log("jsonedEvent", e, jsonedEvent);
         this.postMessage({
             type: "Event",
             inputs: [jsonedEvent]
@@ -92,7 +94,6 @@ export default class EditorHolder extends React.Component {
     }
 
     componentWillUnmount(){
-        console.log("componentWillUnmount EditorHolder");
         this.unRegisterKeyEvent();
         this.iFrameCommunicator.dispose();
         this.mounted = false;
@@ -105,7 +106,6 @@ export default class EditorHolder extends React.Component {
     };
 
     getIframeWindow = () => {
-        console.log("getIframeWindow", this.editorIframe.current);
         return this.editorIframe.current && this.editorIframe.current.contentWindow;
     };
 
@@ -125,6 +125,11 @@ export default class EditorHolder extends React.Component {
             websiteId: this.props.websiteId,
             dashboard
         });
+    }
+
+    closeHolder = () => {
+        console.log("closeHolder");
+        this.context.pageRedirect('dashboard');
     }
 
     onEditorMounted = (callback) => {
@@ -184,6 +189,10 @@ export default class EditorHolder extends React.Component {
     fetchLongProcess = (longProcessId) => {
         Server.getLongProcess(longProcessId, (success, data, error) => {
             console.log("fetchLongProcessAsync",3)
+            if (!this.mounted) {
+                clearInterval(this.loadingInterval);
+                return;
+            }
             if (success) {
                 console.log("fetchLongProcessAsync",4)
                 if (data.longProcess.state === 'complete') {
@@ -191,11 +200,13 @@ export default class EditorHolder extends React.Component {
                     clearInterval(this.loadingInterval);
                     this.setState({
                         // TODO for test
-                        // editorUrl: "http://localhost:3001",
-                        editorUrl: data.longProcess.metaData.url,
+                        editorUrl: "http://localhost:3001",
+                        // editorUrl: data.longProcess.metaData.url,
                         editorLongProcessId: data.longProcess.id
                     });
                 }
+            } else {
+                console.log("Error", error);
             }
         })
     };

@@ -53,10 +53,15 @@ export default class NewWebsiteModal extends React.Component {
         Server.createNewWebSite(this.props.newWebsite, (success, website, error) => {
             if (!this.mounted) return;
 
-            if (success)
+            if (success) {
                 this.props.onWebsiteCreated();
-            else
+                this.context.showSnackbar("Website created successfully", "success");
+            }
+            else 
+            {
+                this.context.showSnackbar(error.response.data.message, 'warning');
                 this.setState({error, loading: false});
+            }
         });
     };
 
